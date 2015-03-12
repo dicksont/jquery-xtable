@@ -30,7 +30,7 @@ To select a range of cells from A1 to B1 programmatically:
 
 ## .row
 
-Returns the jQuery object that contains the tr row element matching the selector.
+Returns the jQuery object that contains the td elements from the row matching the selector.
 
 
 To select the first row:
