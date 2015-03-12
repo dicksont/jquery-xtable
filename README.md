@@ -12,7 +12,7 @@ XTable is a jQuery-based data extractor and manipulator for HTML tables.
 
 Returns the jQuery object that contains the td cell element matching the selector.
 
-To get all cells within the range A1 to B1:
+To get all cells within from A1 to B1:
 
      $.table('table').range('A1:B1')
 
