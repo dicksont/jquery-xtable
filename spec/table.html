@@ -1,0 +1,141 @@
+<!DOCYTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link href="/dist/jquery.table.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="//code.jquery.com/qunit/qunit-1.17.1.css">
+  <style>
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    td {
+      border: 1px solid #ddd;
+      cursor: pointer;
+
+    }
+
+  </style>
+  <script>
+
+    window.onload = function() {
+
+
+    }
+
+
+  </script>
+
+</head>
+
+<body>
+
+  <table class="buster">
+    <tr>
+      <th>Age</th>
+      <th>Games</th>
+      <th>Batting Average</th>
+      <th>Home Runs</th>
+    </tr>
+    <tr>
+      <td class="selected">24</td>
+      <td>45</td>
+      <td>.284</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <td>25</td>
+      <td>148</td>
+      <td>.336</td>
+      <td>24</td>
+    </tr>
+    <tr>
+      <td>26</td>
+      <td>148</td>
+      <td>.294</td>
+      <td>15</td>
+    </tr>
+    <tr>
+      <td>27</td>
+      <td>147</td>
+      <td>.311</td>
+      <td>22</td>
+    </tr>
+  </table>
+
+  <table class="b">
+    <tr>
+      <th></th>
+      <th>A</th>
+      <th>B</th>
+      <th>C</th>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td rowspan="2" colspan="2">A1</td>
+      <td>C1</td>
+      <td>D1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>C2</td>
+      <td rowspan="2">D2</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>A3</td>
+      <td>B3</td>
+      <td>C3</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>A4</td>
+      <td>B4</td>
+      <td>C4</td>
+      <td>D4</td>
+    </tr>
+  </table>
+
+  <div id="qunit"></div>
+  <div id="qunit-fixture"></div>
+  <script src="//code.jquery.com/jquery-1.11.1.js"></script>
+  <script src="//code.jquery.com/qunit/qunit-1.17.1.js"></script>
+  <script src="/dist/jquery.xtable.js"></script>
+  <script>
+
+  QUnit.test( ".base", function( assert ) {
+    assert.ok($.table('table.buster').base('A2').column('B').text() == $.table('table.buster').base('B2').column('A').text(), "base('A2').column('B') == base('B2').column('A')");
+    assert.ok($.table('table.buster').base('A1').row(2).text() == $.table('table.buster').base('A2').row(1).text(), "base('A1').row(2) == base('A2').row(1)");
+  });
+
+  QUnit.test( ".text", function( assert ) {
+    assert.ok($.table('table.buster').base('A2').column('A').text() == "24 25 26 27", "column('A').text() == '24 25 26 27'");
+    assert.ok($.table('table.buster').base('A2').row(1).text() == "24 45 .284 4", "row(1).text() == '24 45 .284 4'");
+    assert.ok($.table('table.buster').base('A2').cell('A1').text() == "24", "cell('A1').text() == '24'");
+  });
+
+  QUnit.test( ".value", function( assert ) {
+    assert.ok($.table('table.buster').base('A2').cell('A1').value() == 24, "cell('A1').value() == 24");
+  });
+
+  QUnit.test(".sum", function(assert) {
+    assert.ok($.table('table.buster').base('A2').column('D').sum() == 65, "column('D').sum() == 65");
+    assert.ok($.table('table.buster').base('A2').range('D1:D4').sum() == 65, "range('D1:D4').sum() == 65");
+    assert.ok($.table('table.buster').base('A2').range('D2:D4').sum() == 61, "range('D2:D4').sum() == 61");
+  });
+
+  QUnit.test(".max", function(assert) {
+    assert.ok($.table('table.buster').base('A2').column('D').max() == 24, "column('D').max() == 24");
+    assert.ok($.table('table.buster').base('A2').range('D2:D4').max() == 22, "column('D').range('D1:D4').sum() == 65");
+    assert.ok($.table('table.buster').base('A2').range('D2:D4').sum() == 61, "column('D').range('D2:D4').sum() == 61");
+  });
+
+  QUnit.test(".select", function(assert) {
+    assert.ok($.table('table.buster').column('A').select().text() == $.table('table.buster').column('A').text(), "column('A').select() == column('A')");
+    assert.ok($.table('table.buster').range('D1:D3').select().text() == $.table('table.buster').range('D1:D3').text(), "range('D1:D3').select() == range('D1:D3')");
+  });
+  </script>
+</body>
+</html>
