@@ -17,14 +17,17 @@ To get all cells within from A1 to B1:
      $.table('table').range('A1:B1')
 
 
+To select a range of cells from A1 to B1 programmatically:
+
+     $.table('table').range('A1:B1').select()
+     
+     
 To get all the cells currently selected:
 
      $.table('table').selection
 
 
-To select a range of cells from A1 to B1 programmatically:
 
-     $.table('table').range('A1:B1').select()
 
 ---
 
