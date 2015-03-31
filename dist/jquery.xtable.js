@@ -620,7 +620,7 @@
     return collection;
   }
 
-  var Quad = root.Quad = function(qexpr) {
+  var Quad = function(qexpr) {
     if (qexpr instanceof Column || qexpr instanceof Row || qexpr instanceof Cell || qexpr instanceof Range || qexpr instanceof Collection) {
       return qexpr;
     }
@@ -638,30 +638,45 @@
     }
   };
 
-  root.Quad.Cell = Cell;
-  root.Quad.Column = Column;
-  root.Quad.Row = Row;
-  root.Quad.Range = Range;
-  root.Quad.Collection = Collection;
+  if (!root.Quad) {
+    root.Quad = Quad;
+    root.Quad.Cell = Cell;
+    root.Quad.Column = Column;
+    root.Quad.Row = Row;
+    root.Quad.Range = Range;
+    root.Quad.Collection = Collection;
+  }
+
 
 })(window);
+/*
+ * Copyright (c) 2015 Dickson Tam
+ *
+ * Permission is hereby granted, free of charge, to any person
+ * obtaining a copy of this software and associated documentation
+ * files (the "Software"), to deal in the Software without
+ * restriction, including without limitation the rights to use,
+ * copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the
+ * Software is furnished to do so, subject to the following
+ * conditions:
+ *
+ * The above copyright notice and this permission notice shall be
+ * included in all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+ * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+ * OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+ * HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+ * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+ * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+ * OTHER DEALINGS IN THE SOFTWARE.
+ *
+ */
+
 
 (function($) {
-
-  jQuery.table = function(selector) {
-
-    if (jQuery(selector).prop('tagName') != "TABLE") return null;
-
-    return annointTable(jQuery(selector));
-  }
-
-  function tr($table) {
-    return ($table.children('tr').length > 0)? $table.children('tr') : $table.children('tbody').children('tr');
-  }
-
-  function td($table) {
-    return tr($table).children('td');
-  }
 
   function annointTable($TABLE) {
     var $TABLE = $TABLE.extend({
@@ -738,9 +753,19 @@
       xrange: createSliceConstructor(Quad.Range, 'data-xcell'),
       enableUI: enableUI,
       disableUI: disableUI,
+      text: function() {
+        var extent = this.extent();
+        var text = "";
+        for (var i=extent.start.row.number; i < extent.end.row.number; i++) {
+          for (var j=extent.start.column.number; j < extent.end.column.number; j++) {
+            text += this.cell(Quad.Column(j).string + i).text() + "\t";
+          }
+          text = text.trim() + "\n";
+        }
+      },
       coord: function(element) {
         return $(element).attr('data-cell');
-      }
+      },
     });
 
     $TABLE.selection = createSelection();
@@ -814,18 +839,18 @@
       extObj.select = createNewSelection.bind(undefined, extObj.quad);
 
       if (quad instanceof Quad.Cell) {
-        extObj.string = function() { return this.html() || "" };
+        extObj.text = function() { return this.html() || "" };
         extObj.sum = extObj.value = function() { return Number(this.html()) || 0 };
       } else {
-        extObj.string = createReducer(function(cell, cumulative) { return cumulative.length? cumulative + " " + cell.string() : cell.string() }, "");
+        extObj.text = createReducer(function(cell, cumulative) { return cumulative.length? cumulative + " " + cell.text() : cell.text() }, "");
         extObj.sum = extObj.value = createReducer(function(cell, cumulative) { return cumulative + cell.value() }, 0);
         extObj.cells = createMapper(function(e) { return e; });
         extObj.sprint = function() {
-          return this.cells().map(function(cell) { return cell.string() });
+          return this.cells().map(function(cell) { return cell.text() });
         };
 
         extObj.sprintf = function(format) {
-          return this.cells().map(function(cell) { return cell.string() });
+          return this.cells().map(function(cell) { return cell.text() });
         };
       }
 
@@ -926,6 +951,14 @@
     }
   }
 
+  function tr($table) {
+    return ($table.children('tr').length > 0)? $table.children('tr') : $table.children('tbody').children('tr');
+  }
+
+  function td($table) {
+    return tr($table).children('td');
+  }
+
 
   function createReducer(fx, initial) {
     return function() {
@@ -956,4 +989,25 @@
     }
   }
 
+
+
+  if (!jQuery.table) {
+    jQuery.table = function(selector) {
+
+      if (jQuery(selector).prop('tagName') != "TABLE") return null;
+
+      return annointTable(jQuery(selector));
+    };
+
+    jQuery.table.all = function() {
+      var arr = [];
+
+      jQuery('table').each(function() {
+        arr.push(annointTable(jQuery(this)));
+      });
+
+      return arr;
+    }
+
+  }
 })(jQuery);
