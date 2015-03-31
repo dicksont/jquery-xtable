@@ -27,21 +27,6 @@
 
 (function($) {
 
-  jQuery.table = function(selector) {
-
-    if (jQuery(selector).prop('tagName') != "TABLE") return null;
-
-    return annointTable(jQuery(selector));
-  }
-
-  function tr($table) {
-    return ($table.children('tr').length > 0)? $table.children('tr') : $table.children('tbody').children('tr');
-  }
-
-  function td($table) {
-    return tr($table).children('td');
-  }
-
   function annointTable($TABLE) {
     var $TABLE = $TABLE.extend({
       basis: function() {
@@ -129,7 +114,7 @@
       },
       coord: function(element) {
         return $(element).attr('data-cell');
-      }
+      },
     });
 
     $TABLE.selection = createSelection();
@@ -315,6 +300,14 @@
     }
   }
 
+  function tr($table) {
+    return ($table.children('tr').length > 0)? $table.children('tr') : $table.children('tbody').children('tr');
+  }
+
+  function td($table) {
+    return tr($table).children('td');
+  }
+
 
   function createReducer(fx, initial) {
     return function() {
@@ -345,4 +338,25 @@
     }
   }
 
+
+
+  if (!jQuery.table) {
+    jQuery.table = function(selector) {
+
+      if (jQuery(selector).prop('tagName') != "TABLE") return null;
+
+      return annointTable(jQuery(selector));
+    };
+
+    jQuery.table.all = function() {
+      var arr = [];
+
+      jQuery('table').each(function() {
+        arr.push(annointTable(jQuery(this)));
+      });
+
+      return arr;
+    }
+
+  }
 })(jQuery);

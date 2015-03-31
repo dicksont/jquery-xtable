@@ -620,7 +620,7 @@
     return collection;
   }
 
-  var Quad = root.Quad = function(qexpr) {
+  var Quad = function(qexpr) {
     if (qexpr instanceof Column || qexpr instanceof Row || qexpr instanceof Cell || qexpr instanceof Range || qexpr instanceof Collection) {
       return qexpr;
     }
@@ -638,10 +638,14 @@
     }
   };
 
-  root.Quad.Cell = Cell;
-  root.Quad.Column = Column;
-  root.Quad.Row = Row;
-  root.Quad.Range = Range;
-  root.Quad.Collection = Collection;
+  if (!root.Quad) {
+    root.Quad = Quad;
+    root.Quad.Cell = Cell;
+    root.Quad.Column = Column;
+    root.Quad.Row = Row;
+    root.Quad.Range = Range;
+    root.Quad.Collection = Collection;
+  }
+
 
 })(window);

@@ -102,7 +102,8 @@
   <div id="qunit-fixture"></div>
   <script src="//code.jquery.com/jquery-1.11.1.js"></script>
   <script src="//code.jquery.com/qunit/qunit-1.17.1.js"></script>
-  <script src="/dist/jquery.xtable.js"></script>
+  <script src="/src/quad.js"></script>
+  <script src="/src/table.js"></script>
   <script>
 
   QUnit.test( ".base", function( assert ) {
@@ -128,13 +129,19 @@
 
   QUnit.test(".max", function(assert) {
     assert.ok($.table('table.buster').base('A2').column('D').max() == 24, "column('D').max() == 24");
-    assert.ok($.table('table.buster').base('A2').range('D2:D4').max() == 22, "column('D').range('D1:D4').sum() == 65");
+    assert.ok($.table('table.buster').base('A2').range('D2:D4').max() == 24, "column('D').range('D1:D4').max() == 24");
     assert.ok($.table('table.buster').base('A2').range('D2:D4').sum() == 61, "column('D').range('D2:D4').sum() == 61");
   });
 
   QUnit.test(".select", function(assert) {
     assert.ok($.table('table.buster').column('A').select().text() == $.table('table.buster').column('A').text(), "column('A').select() == column('A')");
     assert.ok($.table('table.buster').range('D1:D3').select().text() == $.table('table.buster').range('D1:D3').text(), "range('D1:D3').select() == range('D1:D3')");
+  });
+
+  QUnit.test(".all", function(assert) {
+    assert.ok($.table.all().length == $('table').length, "all().length == $('table').length");
+    assert.ok($.table.all()[0].get(0) == $('table')[0], "all()[0] == $('table')[0]");
+    assert.ok($.table.all()[1].get(0) == $('table')[1], "all()[1] == $('table')[1]");
   });
   </script>
 </body>
