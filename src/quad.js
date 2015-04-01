@@ -638,14 +638,18 @@
     }
   };
 
-  if (!root.Quad) {
-    root.Quad = Quad;
-    root.Quad.Cell = Cell;
-    root.Quad.Column = Column;
-    root.Quad.Row = Row;
-    root.Quad.Range = Range;
-    root.Quad.Collection = Collection;
-  }
+  jQuery.extend(jQuery, {
+    quad: Quad
+  });
 
+  jQuery.extend(jQuery.quad, {
+    Cell: Cell,
+    Column: Column,
+    Row: Row,
+    Range: Range,
+    Collection: Collection
+  })
+
+  console.log('Loaded jQuery.quad.');
 
 })(window);

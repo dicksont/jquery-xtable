@@ -27,6 +27,8 @@
 
 (function($) {
 
+  var Quad = jQuery.quad;
+
   function annointTable($TABLE) {
     var $TABLE = $TABLE.extend({
       basis: function() {
@@ -338,17 +340,17 @@
     }
   }
 
-
-
-  if (!jQuery.table) {
-    jQuery.table = function(selector) {
+  jQuery.extend(jQuery, {
+    table: function(selector) {
 
       if (jQuery(selector).prop('tagName') != "TABLE") return null;
 
       return annointTable(jQuery(selector));
-    };
+    }
+  });
 
-    jQuery.table.all = function() {
+  jQuery.extend(jQuery.table, {
+    all: function() {
       var arr = [];
 
       jQuery('table').each(function() {
@@ -357,6 +359,8 @@
 
       return arr;
     }
+  });
 
-  }
+  console.log('Loaded jQuery.table.');
+
 })(jQuery);
