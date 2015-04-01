@@ -27,7 +27,7 @@
 
 (function($) {
 
-  var Quad = jQuery.quad;
+  var Quad = jQuery.Quad;
 
   function annointTable($TABLE) {
     var $TABLE = $TABLE.extend({

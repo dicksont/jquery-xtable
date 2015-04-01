@@ -639,10 +639,10 @@
   };
 
   jQuery.extend(jQuery, {
-    quad: Quad
+    Quad: Quad
   });
 
-  jQuery.extend(jQuery.quad, {
+  jQuery.extend(jQuery.Quad, {
     Cell: Cell,
     Column: Column,
     Row: Row,
