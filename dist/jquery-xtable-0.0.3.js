@@ -650,7 +650,7 @@
     Collection: Collection
   })
 
-  console.log('Loaded jQuery.quad.');
+  console.log('Loaded jQuery.Quad.');
 
 })(window);
 
@@ -792,10 +792,10 @@
           var jqobj = jQuery();
 
           for (var i=0; i < qdarray.length; i++) {
-            jqobj = jqobj.add($TABLE.find('[' + attribute + '*="' + qdarray[i] + '"]'));
+            jqobj = jqobj.add($TABLE.find('[' + attribute + '~="' + qdarray[i] + '"]'));
           }
         } else {
-          jqobj = $TABLE.find('[' + attribute + '*="' + quad.string + '"]');
+          jqobj = $TABLE.find('[' + attribute + '~="' + quad.string + '"]');
         }
 
         return (quad instanceof classConstructor)? annointSlice(jqobj, quad) : annointSlice();
@@ -876,7 +876,7 @@
         var qdarray = quad.cellsInRange(extent).strarray();
 
         for (var i=0; i < qdarray.length; i++) {
-          jqobj = jqobj.add($TABLE.find('[' + attribute + '*="' + qdarray[i] + '"]'));
+          jqobj = jqobj.add($TABLE.find('[' + attribute + '~="' + qdarray[i] + '"]'));
         }
 
         td($TABLE).removeClass('selected');
