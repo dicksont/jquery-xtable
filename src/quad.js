@@ -650,6 +650,6 @@
     Collection: Collection
   })
 
-  console.log('Loaded jQuery.quad.');
+  console.log('Loaded jQuery.Quad.');
 
 })(window);
