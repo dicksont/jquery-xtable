@@ -1,1 +1,1 @@
-jquery-xtable-0.0.2.js
+jquery-xtable-0.0.3.js
