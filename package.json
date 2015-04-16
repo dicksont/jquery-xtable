@@ -1,11 +1,8 @@
 {
   "name": "jquery-xtable",
-  "main": "nw.html",
-  "scripts": {
-    "start": "node server.js"
-  },
+  "main": "dist/jquery-xtable.js",
   "description": "jQuery-based data extractor and manipulator for HTML tables",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "dependencies": {
     "jquery": "~2.1.3"
   },
