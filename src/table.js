@@ -25,9 +25,9 @@
  */
 
 
-(function($) {
+(function() {
 
-  var Quad = jQuery.Quad;
+  var Quad;
 
   function annointTable($TABLE) {
     var $TABLE = $TABLE.extend({
@@ -340,27 +340,55 @@
     }
   }
 
-  jQuery.extend(jQuery, {
-    table: function(selector) {
+  function class_factory(jquery, quad) {
 
-      if (jQuery(selector).prop('tagName') != "TABLE") return null;
+    jquery = jquery || jQuery;
+    quad = quad || jQuery.Quad;
 
-      return annointTable(jQuery(selector));
-    }
-  });
+    Quad = quad;
+    if (jquery == null || !(jquery instanceof Object)) {
+      throw new Error("Failed to install Table. jQuery object not found.");
+      return false;
+    } else if (jquery.extend == null) {
+      throw new Error("Failed to install Quad. jQuery.extend not found.");
+      return false;
+    } else {
+      jquery.extend(jquery, {
+        table: function(selector) {
 
-  jQuery.extend(jQuery.table, {
-    all: function() {
-      var arr = [];
+          if (jquery(selector).prop('tagName') != "TABLE") return null;
 
-      jQuery('table').each(function() {
-        arr.push(annointTable(jQuery(this)));
+          return annointTable(jquery(selector));
+        }
       });
 
-      return arr;
+      jquery.extend(jquery.table, {
+        all: function() {
+          var arr = [];
+
+          jquery('table').each(function() {
+            arr.push(annointTable(jquery(this)));
+          });
+
+          return arr;
+        }
+      });
     }
-  });
 
-  console.log('Loaded jQuery.table.');
+      console.log('Installed table => jQuery.table.');
+      return jQuery.table;
+  }
 
-})(jQuery);
+
+  if (typeof module !== 'undefined' && module && module.exports) { // Node.js & CommonJS
+    module.exports = class_factory();
+  } else if (typeof define === 'function' && define.amd) { // Require.js & AMD
+    define('jquery-xtable', ['jquery', 'jquery-xtable-quad'], function(jquery, quad) {
+      return class_factory(jquery, quad);
+    });
+  } else { // Browser
+    class_factory();
+  }
+
+
+})();
