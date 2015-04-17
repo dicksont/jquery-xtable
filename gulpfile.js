@@ -17,21 +17,18 @@ var srcPath = {}, buildPath = {}, distPath = {}, buildVersion = {}, meta = {};
 meta.package = "package.json";
 meta.bower = 'bower.json';
 
-var build = require(meta.package);
-
 srcPath.tablejs = 'src/table.js';
 srcPath.quadjs = 'src/quad.js';
 srcPath.css = 'src/table.css';
 srcPath.license = 'LICENSE';
 
-buildPath.js = 'build/jquery-xtable-' + build.version + '.js';
-buildPath.css = 'build/jquery-xtable-' + build.version + '.css';
+buildPath.js = 'build/jquery-xtable.js';
+buildPath.css = 'build/jquery-xtable.css';
 
 distPath.dir = 'dist/';
-distPath.js = 'dist/jquery-xtable-' + build.version + '.js';
-distPath.css = 'dist/jquery-xtable-' + build.version + '.css';
-distPath.jslink = 'dist/jquery-xtable.js';
-distPath.csslink = 'dist/jquery-xtable.css';
+distPath.js = 'dist/jquery-xtable.js';
+distPath.css = 'dist/jquery-xtable.css';
+
 
 gulp.task('buildjs', function() {
   return evstr.merge(gulp.src(srcPath.quadjs), gulp.src(srcPath.tablejs).pipe(strip()))
@@ -58,10 +55,7 @@ gulp.task('distpatch', ['buildjs', 'css'], function() {
     .pipe(gulp.dest(distPath.dir));
 });
 
-gulp.task('mkpatch', ['distpatch'], function() {
-  return gulp.src([distPath.js, distPath.css])
-    .pipe(symlink([distPath.jslink, distPath.csslink], { force: true }));
-});
+gulp.task('mkpatch', ['distpatch']);
 
 gulp.task('clean', function() {
   return gulp.src([ distPath.dir, dir(buildPath.js), dir(buildPath.css) ])

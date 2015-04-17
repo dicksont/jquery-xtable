@@ -2,7 +2,7 @@
   "name": "jquery-xtable",
   "main": "dist/jquery-xtable.js",
   "description": "jQuery-based data extractor and manipulator for HTML tables",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "dependencies": {
     "jquery": "~2.1.3"
   },
