@@ -1,4 +1,4 @@
-<link href="http://kevinburke.bitbucket.org/markdowncss/markdown.css" rel="stylesheet"></link>
+[![Build Status](https://travis-ci.org/dicksont/jquery-xtable.svg?branch=master)](https://travis-ci.org/dicksont/jquery-xtable)
 
 ### jQuery XTable
 # API Usage
