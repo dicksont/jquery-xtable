@@ -3,8 +3,8 @@
 
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-  <link href="/dist/jquery-xtable.css" rel="stylesheet"/>
-  <link rel="stylesheet" href="//code.jquery.com/qunit/qunit-1.17.1.css">
+  <link href="/lib/jquery-xtable.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="/bower_components/qunit/qunit/qunit.css">
   <style>
 
     body {
@@ -89,16 +89,10 @@
 
     var $Q = {
       'modenv' :  location.getParameterByName('modenv') || 'browser',
-      'tgt' : location.getParameterByName('tgt') || 'table',
-    }
-
-    var SPEC_FILES = {
-      'quad': 'quad_spec.js',
-      'table' : 'table_spec.js'
     }
 
     window.addEventListener('DOMContentLoaded', function() {
-      var selids = [ 'tgt', 'modenv'];
+      var selids = [ 'modenv'];
 
       selids.forEach(function(selid) {
         var elm = document.getElementById(selid);
@@ -119,13 +113,14 @@
             urlArgs: Date.now(),
             paths: {
               'jquery' : '/bower_components/jquery/dist/jquery',
-              'jquery-xtable-quad' : '/lib/jquery-xtable-quad',
+              'afnum' : '/node_modules/afnum/lib/afnum',
+              'qunit' : '/bower_components/qunit/qunit/qunit',
               'jquery-xtable' : '/lib/jquery-xtable',
-              'spec' : SPEC_FILES[$Q['tgt']].replace(/\.js$/,''),
+              'spec' : 'table_spec'
             },
             shim: {
-              'spec': {
-                deps: ['jquery-xtable', 'jquery-xtable-quad'],
+              'qunit': {
+                'exports' : 'QUnit'
               }
             }
           });
@@ -136,9 +131,9 @@
       } else {
         loadBrowserScripts([
           "/bower_components/jquery/dist/jquery.js",
-          "/lib/jquery-xtable-quad.js",
+          "/node_modules/afnum/lib/afnum.js",
           "/lib/jquery-xtable.js",
-          SPEC_FILES[$Q['tgt']]
+          "table_spec.js"
         ]);
       }
     });
@@ -150,13 +145,6 @@
 
 <body>
   <form class="config" method="get" id="config">
-    <fieldset>
-      <label>Target Suite</label>
-      <select id="tgt" name="tgt">
-        <option value="quad">Quad [jQuery.Quad]</option>
-        <option value="table">Table [jQuery.table]</option>
-      </select>
-    </fieldset>
     <fieldset>
       <label>Module Environment</label>
       <select id="modenv" name="modenv">

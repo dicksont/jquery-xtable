@@ -8,3 +8,11 @@ gulp.task('bump', function() {
 
   return stream;
 });
+
+gulp.task('bump+', function() {
+  var stream = gulp.src([ "package.json", "bower.json" ])
+    .pipe(bump({type: 'minor'}))
+    .pipe(gulp.dest('./'));
+
+  return stream;
+});
