@@ -1,18 +1,30 @@
 (function(factory) {
 
   if (typeof module !== 'undefined' && module && module.exports) { // Node.js & CommonJS
-    var qunit = QUnit || require('qunitjs');
-    var xtable = require('../lib/jquery-xtable.js');
-    module.exports = factory(qunit, xtable);
+    var isIojs = parseInt(process.version.match(/^v(\d+)\./)[1]) >= 1;
+
+    if (!isIojs) throw new Error('QUnit tests for node require io.js.');
+
+    var dirname = (typeof(__dirname) == "undefined")? "./" : __dirname;
+    var qunit = (typeof(QUnit) == "undefined")? require('qunitjs') : QUnit;
+    var jsdom = require('jsdom');
+    var fs = require('fs');
+    var path = require('path');
+    var txt = fs.readFileSync(path.resolve(dirname,'sample_tables.html'), 'utf8');
+    var document = jsdom.jsdom(txt);
+    var window = document.defaultView;
+    var jquery = require('jquery')(window);
+    var xtable = require('../lib/jquery-xtable.js')(jquery);
+    module.exports = factory(qunit, jquery, xtable);
   } else if (typeof define === 'function' && define.amd) { // Require.js & AMD
 
-    define([ 'qunit', 'jquery-xtable'], function(qunit, xtable) {
-      factory(qunit, xtable);
+    define([ 'qunit', 'jquery', 'jquery-xtable'], function(qunit, jquery, xtable) {
+      factory(qunit, jquery, xtable);
     });
   } else { // Browser
-    factory(QUnit, jQuery.xtable);
+    factory(QUnit, jQuery, jQuery.table);
   }
-})(function(QUnit, XTable) {
+})(function(QUnit, jQuery, XTable) {
 
 QUnit.test( ".base", function( assert ) {
   assert.ok(XTable('table.buster').base('A2').column('B').text() == XTable('table.buster').base('B2').column('A').text(), "base('A2').column('B') == base('B2').column('A')");
