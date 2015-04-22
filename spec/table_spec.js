@@ -49,7 +49,7 @@ QUnit.test(".sum", function(assert) {
 
 QUnit.test(".max", function(assert) {
   assert.ok(XTable('table.buster').base('A2').column('D').max() == 24, "column('D').max() == 24");
-  assert.ok(XTable('table.buster').base('A2').range('D2:D4').max() == 24, "column('D').range('D1:D4').max() == 24");
+  assert.ok(XTable('table.buster').base('A2').range('D2:D4').max() == 24, "column('D').range('D2:D4').max() == 24");
   assert.ok(XTable('table.buster').base('A2').range('D2:D4').sum() == 61, "column('D').range('D2:D4').sum() == 61");
 });
 
