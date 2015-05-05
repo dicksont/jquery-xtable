@@ -1,61 +1,26 @@
 [![Build Status](https://travis-ci.org/dicksont/jquery-xtable.svg?branch=master)](https://travis-ci.org/dicksont/jquery-xtable)
 
 ### jQuery XTable
-# API Usage
+# Introduction
+
+XTable provides a table selection API for HTML tables on top of jQuery. XTable  augments the base jQuery object with a table function. The developer can use this table function to construct a XTable object. Via the XTable object, the developer can access XTable methods in addition to standard jQuery ones.
+
+[Table selectors](SELECTORS.md) | [User selection](USERSEL.md) | [More examples](EXAMPLES.md)
 
 
-XTable is a jQuery-based data extractor and manipulator for HTML tables.
+# Sample
 
----
+For example, when you specify:
 
-## .range
+```javascript
 
-Returns the jQuery object that contains the td cell element matching the selector.
+var ez = $.table('table.buster')
 
-To get all cells within from A1 to B1:
+```
 
-     $.table('table').range('A1:B1')
+you will be able to access additional XTable methods via the *ez* variable. These selectors include:
 
-
-To select a range of cells from A1 to B1 programmatically:
-
-     $.table('table').range('A1:B1').select()
-     
-     
-To get all the cells currently selected:
-
-     $.table('table').selection
-
-
-
-
----
-
-## .row
-
-Returns the jQuery object that contains the td elements from the row matching the selector.
-
-
-To select the first row:
-
-    $.table('table').row(1)
-
-      OR
-
-    $.table('table').row('1')
-
----
-
-## .enableUI
-
-Enables UI interactions for the table, including cell selection.
-
-    $.table('table').enableUI();
-
----
-
-## .disableUI
-
-Disables UI interactions for the table, including cell selection.
-
-    $.table('table').enableUI();
+- **base/basis** - *set/return the origin of the coordinate system*
+- **row/xrow** - *select a row by passing in the row number*
+- **column/xcolumn** - *select a column by passing in the column label*
+- **cell/xcell** - *select a cell by passing in the cell label*
