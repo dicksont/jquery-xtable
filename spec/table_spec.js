@@ -47,10 +47,24 @@ QUnit.test(".sum", function(assert) {
   assert.ok(XTable('table.buster').base('A2').range('D2:D4').sum() == 61, "range('D2:D4').sum() == 61");
 });
 
+QUnit.test(".count", function(assert) {
+  assert.ok(XTable('table.buster').base('A2').column('D').count() == 4, "column('D').count() == 4");
+  assert.ok(XTable('table.buster').base('A2').range('C3:D4').count() == 4, "column('D').range('C3:D4').count() == 4");
+});
+
 QUnit.test(".max", function(assert) {
   assert.ok(XTable('table.buster').base('A2').column('D').max() == 24, "column('D').max() == 24");
   assert.ok(XTable('table.buster').base('A2').range('D2:D4').max() == 24, "column('D').range('D2:D4').max() == 24");
-  assert.ok(XTable('table.buster').base('A2').range('D2:D4').sum() == 61, "column('D').range('D2:D4').sum() == 61");
+});
+
+QUnit.test(".min", function(assert) {
+  assert.ok(XTable('table.buster').base('A2').column('D').min() == 4, "column('D').min() == 4");
+  assert.ok(XTable('table.buster').base('A2').range('D2:D4').min() == 15, "column('D').range('D2:D4').max() == 15");
+});
+
+QUnit.test(".avg", function(assert) {
+  assert.ok(XTable('table.buster').base('A2').column('D').avg() == 16.25, "column('D').avg() == 16.25");
+  assert.ok(XTable('table.buster').base('A2').range('D3:D4').avg() == 18.5, "column('D').range('D2:D4').avg() == 18.5");
 });
 
 QUnit.test(".select", function(assert) {
