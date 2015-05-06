@@ -1,4 +1,5 @@
-[![Build Status](https://travis-ci.org/dicksont/jquery-xtable.svg?branch=master)](https://travis-ci.org/dicksont/jquery-xtable)
+[![Build Status](https://travis-ci.org/dicksont/jquery-xtable.svg?branch=master)](https://travis-ci.org/dicksont/jquery-xtable) [![npm version](https://badge.fury.io/js/jquery-xtable.svg)](http://badge.fury.io/js/jquery-xtable) [![Bower version](https://badge.fury.io/bo/jquery-xtable.svg)](http://badge.fury.io/bo/jquery-xtable)
+
 
 ### jQuery XTable
 # Introduction
