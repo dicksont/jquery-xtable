@@ -2,7 +2,7 @@
   "name": "jquery-xtable",
   "main": "lib/jquery-xtable.js",
   "description": "Cell selection API for HTML tables on top of jQuery",
-  "version": "0.4.6",
+  "version": "0.4.7",
   "dependencies": {
     "jquery": "~2.1.3",
     "afnum": "~0.0.2"

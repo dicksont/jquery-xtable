@@ -30,18 +30,18 @@ gives you access to a suite XTable methods. These methods include:
 
 #Examples
 ## Styling
-To set the background color of cells in row 2 to red:
+To set the background color of cells in row *2* to red:
 ```javascript
 $.table('table').row(2).css('background-color', 'red');
 ```
 
-To set the text color of cells of A1 to D2 to blue:
+To set the text color of cells of *A1* to *D2* to blue:
 ```javascript
 $.table('table').range('A1:D2').css('color', 'blue');
 ```
 
 
-Find the title element in cell A1 and hide it:
+Find the title element in cell *A1* and hide it:
 ```javascript
 $.table('table').cell('A1').find('.title').hide();
 ```
@@ -54,37 +54,37 @@ To get the text of the first row:
 $.table('table').row(1).text()
 ```
 
-To get the text of the A1 cell:
+To get the text of the *A1* cell:
 ```javascript
 $.table('table').cell('A1').text();
 ```
 
-To get the value of the A1 cell:
+To get the value of the *A1* cell:
 ```javascript
 $.table('table').cell('A1').value();
 ```
 
 ## Statistics
-To sum, the value of column D in a table with the mlb class:
+To sum column *D* in *table.mlb*:
 
 ```javascript
 $.table('table.mlb').column('D').sum()
 ```
 
-To calculate the average of column D:
+To calculate the average of column *D* in *table.mlb*:
 
 ```javascript
 $.table('table.mlb').column('D').avg()
 ```
 
 ## Coordinate Remapping
-Remap coordinates by skipping the first header row. Retrieve the value of the A1 cell with the new coordinate mapping.
+Remap coordinates by skipping the first header row. Retrieve the value of the *A1* cell with the new coordinate mapping.
 
 ```javascript
 $.table('table').base('A2').cell('A1').value()
 ```
 
-Remap coordinates by skipping the first header row and first header column. Retrieve the value of the A1 cell with the new coordinate mapping.
+Remap coordinates by skipping the first header row and first header column. Retrieve the value of the *A1* cell with the new coordinate mapping.
 ```javascript
 $.table('table').base('B2').cell('A1').value()
 ```
